@@ -1,6 +1,5 @@
 More Immediate
 
-- set up on git
 - check to see if scrolling feature works well with actual mouse
 - Watch Vue Tutorials
 
