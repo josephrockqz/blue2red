@@ -6,7 +6,6 @@ More Immediate
 Future
 
 - Background Music / Add action effects for placing and clearing blocks
-- Set up on git
 - Animations for clearing blocks, placing blocks, 
 
 Maybes

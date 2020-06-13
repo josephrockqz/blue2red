@@ -170,7 +170,7 @@
         </div>
       </div>
     </div>
-    
+
     <!--Instructions Modal-->
     <b-modal id="inst-modal" title="Instructions" hide-footer>
       <div class="modal-class">
