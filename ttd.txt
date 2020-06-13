@@ -1,0 +1,16 @@
+More Immediate
+
+- set up on git
+- check to see if scrolling feature works well with actual mouse
+- Watch Vue Tutorials
+
+Future
+
+- Background Music / Add action effects for placing and clearing blocks
+- Set up on git
+- Animations for clearing blocks, placing blocks, 
+
+Maybes
+
+? learn how to do asides
+? make a point system that rewards the user
