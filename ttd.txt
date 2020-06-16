@@ -1,12 +1,15 @@
 More Immediate
 
-- check to see if scrolling feature works well with actual mouse
+- set up mongodb
+
 - Setting up the website
 -- get domain name
 -- get ssl certificate
 -- get AWS (or other) server
 -- set up cloudflare (or other)
 -- set up custom email
+
+- prevent inappropriate names
 
 Future
 
