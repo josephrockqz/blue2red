@@ -1,7 +1,5 @@
 More Immediate
 
-- set up mongodb
-
 - Setting up the website
 -- get domain name
 -- get ssl certificate
