@@ -1,0 +1,9 @@
+Connect to mongodb remotely:
+  mongo -u joerock -p henley07 18.188.54.151/blue2red_scores
+
+Connect to mongodb database using authentification:
+  mongo --port 27017 -u "joerock" -p "henley07" --authenticationDatabase "blue2red_scores"
+
+Show contents of mongodb collection when in mongo shell:
+  db.collection_name.find().pretty()
+  

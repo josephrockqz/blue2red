@@ -1,10 +1,8 @@
 More Immediate
 
 - Setting up the website
--- get domain name
--- get ssl certificate
--- get AWS (or other) server
--- set up cloudflare (or other)
+-- create a page for the main website
+-- get backend to work
 -- set up custom email
 
 - prevent inappropriate names
@@ -13,9 +11,9 @@ Future
 
 - Background Music / Add action effects for placing and clearing blocks
 - Animations for clearing blocks, placing blocks, 
--- Watch Vue Tutorials
 
 Maybes
 
 ? learn how to do asides
 ? make a point system that rewards the user
+? make it work with touch screen
