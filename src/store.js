@@ -1,20 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import EventService from './services/EventService'
+import EventServiceMongo from './services/EventServiceMongo'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     boolGameOff: true,
+    errors: [],
     score: 0,
     scores: [],
     width: 10
   },
   mutations: {
-    ADD_SCORE(state, score) {
-      state.scores.push(score)
+    ADD_ERROR(state, error) {
+      state.errors.push(error)
     },
+    // ADD_SCORE(state, score) {
+    //   state.scores.push(score)
+    // },
     CHANGE_BOOL_GAME_OFF(state, bool) {
       state.boolGameOff = bool
     },
@@ -46,6 +51,20 @@ export default new Vuex.Store({
     postScore({ commit }, { score }) {
       EventService.postScore(score).then(() => {
         commit('ADD_SCORE', score)
+      })
+    },
+    getScoresMongo({ commit }) {
+      return EventServiceMongo.getScores()
+        .then(response => {
+          commit('SET_SCORES', response)
+        })
+        .catch(error => {
+          commit('ADD_ERROR', error)
+        })
+    },
+    postScoreMongo({ commit }, { score, name }) {
+      EventServiceMongo.insertScore(score, name).catch(error => {
+        commit('ADD_ERROR', error)
       })
     }
   },

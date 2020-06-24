@@ -112,7 +112,8 @@ export default {
       return score2 - score1
     },
     async getScores() {
-      let i = store.dispatch('getScores')
+      let i = store.dispatch('getScoresMongo')
+      // let i = store.dispatch('getScores')
       await i
       this.scores.sort(this.compareScores)
       for (let i = 0; i < this.scores.length; i++) {
@@ -163,13 +164,10 @@ export default {
   async created() {
     let w = this.getScores(this.currentPage)
     await w
-    console.log(this.scores)
     let x = this.getScoresMonth()
     await x
-    console.log(this.scoresCurrentMonth)
     let y = this.getScoresToday()
     await y
-    console.log(this.scoresToday)
   },
   updated() {
     for (let i = 0; i < this.scores.length; i++) {

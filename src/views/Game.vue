@@ -243,8 +243,7 @@ export default {
       timer: '',
       currentScore: {
         name: '',
-        score: null,
-        date: null
+        score: null
       },
       showModal: false,
       mouseOverGame: false,
@@ -571,27 +570,18 @@ export default {
       })
     },
     submitScore() {
-      store.dispatch('postScore', {
-        score: this.currentScore
+      // store.dispatch('postScore', {
+      //   score: this.currentScore
+      // })
+      store.dispatch('postScoreMongo', {
+        score: this.currentScore.score,
+        name: this.currentScore.name
       })
     },
     resetGame() {
       // set up score object to be posted to high scores list
       this.$bvModal.hide('end-modal')
       this.currentScore.score = this.score
-      var d = new Date()
-      this.currentScore.date =
-        d.getDate() +
-        '/' +
-        (d.getMonth() + 1) +
-        '/' +
-        d.getFullYear() +
-        '@' +
-        d.getHours() +
-        ':' +
-        d.getMinutes() +
-        ':' +
-        d.getSeconds()
       this.submitScore()
       store.dispatch('setScoreToZero')
       this.squares.forEach(square => {
@@ -609,6 +599,7 @@ export default {
     ...mapActions([
       'changeScore',
       'postScore',
+      'postScoreMongo',
       'setScoreToZero',
       'changeBoolGameOff'
     ])
