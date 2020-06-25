@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000' // 18.188.54.151, localhost:5000, node.joerock.dev
+        target: 'http://node.joerock.dev' // 18.188.54.151, localhost:5000, node.joerock.dev
       }
     }
   }
