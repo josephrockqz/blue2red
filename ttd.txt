@@ -1,11 +1,9 @@
 More Immediate
 
-- Setting up the website
--- create a page for the main website
--- get backend to work
--- set up custom email
-
+- discovery: google ads
+- set up custom email
 - prevent inappropriate names
+- improve homepage
 
 Future
 
