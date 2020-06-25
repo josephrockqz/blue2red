@@ -17,9 +17,6 @@ export default new Vuex.Store({
     ADD_ERROR(state, error) {
       state.errors.push(error)
     },
-    // ADD_SCORE(state, score) {
-    //   state.scores.push(score)
-    // },
     CHANGE_BOOL_GAME_OFF(state, bool) {
       state.boolGameOff = bool
     },
