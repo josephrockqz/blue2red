@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://node.joerock.dev/api/posts'
+const url = 'https://node.joerock.dev/api/posts'
 
 class EventServiceMongo {
   // Get Scores

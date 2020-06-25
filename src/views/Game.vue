@@ -209,7 +209,10 @@
           type="text"
           v-model="currentScore.name"
         />
-        <button :disabled="currentScore.name === ''" @click="resetGame()">
+        <button
+          :disabled="currentScore.name === ''"
+          @click.prevent="resetGame()"
+        >
           Submit
         </button>
       </div>
