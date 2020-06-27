@@ -4,6 +4,7 @@ More Immediate
 - set up custom email
 - prevent inappropriate names
 - improve homepage
+- change icon showing up on tab
 
 Future
 
