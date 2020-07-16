@@ -17,7 +17,6 @@
             style="margin-left: 2px;"
             >Next</b-button
           >
-
           <b-table
             :items="scores"
             :fields="fields"
@@ -113,7 +112,6 @@ export default {
     },
     async getScores() {
       let i = store.dispatch('getScoresMongo')
-      // let i = store.dispatch('getScores')
       await i
       this.scores.sort(this.compareScores)
       for (let i = 0; i < this.scores.length; i++) {
@@ -121,7 +119,6 @@ export default {
       }
     },
     async getScoresMonth() {
-      await this.getScores()
       const d = new Date()
       const month = d.getMonth() + 1
       const year = d.getFullYear()
@@ -129,10 +126,10 @@ export default {
         let slash1 = score.date.indexOf('/')
         let slash2 = score.date.indexOf('/', slash1 + 1)
         let at = score.date.indexOf('@')
-        let mScore = score.date.slice(slash1 + 1, slash2)
-        let yScore = score.date.slice(slash2 + 1, at)
+        let mScore = score.date.substring(slash1 + 1, slash2)
+        let yScore = score.date.substring(slash2 + 1, at)
         if (month == mScore && year == yScore) {
-          this.scoresCurrentMonth.push(score)
+          this.scoresCurrentMonth.push(JSON.parse(JSON.stringify(score)))
         }
       })
       for (let i = 0; i < this.scoresCurrentMonth.length; i++) {
@@ -140,7 +137,6 @@ export default {
       }
     },
     async getScoresToday() {
-      await this.getScores()
       const d = new Date()
       const day = d.getDate()
       const month = d.getMonth() + 1
@@ -149,11 +145,11 @@ export default {
         let slash1 = score.date.indexOf('/')
         let slash2 = score.date.indexOf('/', slash1 + 1)
         let at = score.date.indexOf('@')
-        let dScore = score.date.slice(0, slash1)
-        let mScore = score.date.slice(slash1 + 1, slash2)
-        let yScore = score.date.slice(slash2 + 1, at)
+        let dScore = score.date.substring(0, slash1)
+        let mScore = score.date.substring(slash1 + 1, slash2)
+        let yScore = score.date.substring(slash2 + 1, at)
         if (day == dScore && month == mScore && year == yScore) {
-          this.scoresToday.push(score)
+          this.scoresToday.push(JSON.parse(JSON.stringify(score)))
         }
       })
       for (let i = 0; i < this.scoresToday.length; i++) {
@@ -162,7 +158,7 @@ export default {
     }
   },
   async created() {
-    let w = this.getScores(this.currentPage)
+    let w = this.getScores()
     await w
     let x = this.getScoresMonth()
     await x
