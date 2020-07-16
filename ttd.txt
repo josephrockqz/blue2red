@@ -1,9 +1,11 @@
 More Immediate
 
-- discovery: google ads
-- set up custom email
-- prevent inappropriate names
-- improve homepage
+- implement name limit
+- implement up and down arrow keys
+- get rid of name after modal close
+- Put a blue 2 red title
+
+- discovery: reinforcement learning
 
 Future
 
