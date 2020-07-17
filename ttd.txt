@@ -1,9 +1,6 @@
 More Immediate
 
-- implement name limit
 - implement up and down arrow keys
-- get rid of name after modal close
-- Put a blue 2 red title
 
 - discovery: reinforcement learning
 

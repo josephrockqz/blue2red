@@ -207,11 +207,16 @@
         <input
           style="margin-bottom: 16px;"
           type="text"
+          maxLength="24"
           v-model="currentScore.name"
         />
         <button :disabled="checkNameFill()" @click.prevent="resetGame()">
           Submit
         </button>
+        <div />
+        <h7 style="color: red" v-show="currentScore.name.length === 24">
+          Max length of 24 characters
+        </h7>
       </div>
     </b-modal>
   </div>
@@ -725,8 +730,8 @@ export default {
           width = (this.currentPiece[h] % 10) + 1
         }
       }
-      function isGoodPlacement(block) {
-        return !block.classList.contains('placed')
+      function isGoodPlacement(piece) {
+        return !piece.block.classList.contains('placed')
       }
       var allCanBePlaced = []
       var allPossiblePlacements = []
@@ -738,7 +743,11 @@ export default {
             squares_being_tested.push(
               this.squares[i + j + this.currentPiece[k]]
             )
-            pieceBlocks.push(this.squares[i + j + this.currentPiece[k]])
+            const squareNum = i + j + this.currentPiece[k]
+            pieceBlocks.push({
+              block: this.squares[i + j + this.currentPiece[k]],
+              number: squareNum
+            })
           }
           if (pieceBlocks.every(isGoodPlacement)) {
             allPossiblePlacements.push(pieceBlocks)
@@ -856,7 +865,7 @@ export default {
     drawPiece() {
       if (!this.boolGameOff) {
         this.possiblePlacements[this.placementIndex].forEach(index => {
-          index.classList.add('piece')
+          index.block.classList.add('piece')
         })
       }
     },
@@ -891,7 +900,7 @@ export default {
     undrawPiece() {
       if (!this.boolGameOff) {
         this.possiblePlacements[this.placementIndex].forEach(index => {
-          index.classList.remove('piece')
+          index.block.classList.remove('piece')
         })
       }
     },
@@ -914,6 +923,51 @@ export default {
       }
       this.drawPiece()
     },
+    movePieceUpOrDown(num) {
+      console.log(num)
+      // if (num > 0) {
+      //   let blockIndices = []
+      //   this.possiblePlacements[this.placementIndex].forEach(piece => {
+      //     blockIndices.push(piece.number - 10)
+      //   })
+      //   let canMove = false
+      //   this.possiblePlacements.forEach(piece => {
+      //     const rightPiece = piece.every(div => {
+      //       return blockIndices.includes(div.number)
+      //     })
+      //     if (rightPiece === true) {
+      //       canMove = true
+      //     }
+      //   })
+      //   console.log(canMove)
+      //   if (canMove) {
+      //     this.undrawPiece()
+      //     this.placementIndex -= 10
+      //     this.drawPiece()
+      //   }
+      // }
+      // if (num < 0) {
+      //   let blockIndices = []
+      //   this.possiblePlacements[this.placementIndex].forEach(piece => {
+      //     blockIndices.push(piece.number + 10)
+      //   })
+      //   let canMove = false
+      //   this.possiblePlacements.forEach(piece => {
+      //     const rightPiece = piece.every(div => {
+      //       return blockIndices.includes(div.number)
+      //     })
+      //     if (rightPiece === true) {
+      //       canMove = true
+      //     }
+      //   })
+      //   console.log(canMove)
+      //   if (canMove) {
+      //     this.undrawPiece()
+      //     this.placementIndex += 10
+      //     this.drawPiece()
+      //   }
+      // }
+    },
     checkScrollDirection(event) {
       if (!this.boolGameOff && this.mouseOverGame) {
         if (event.wheelDeltaY > 13) {
@@ -931,17 +985,21 @@ export default {
           this.placePiece()
         } else if (e.keyCode === 37) {
           this.movePiece(-1)
+        } else if (e.keyCode === 38) {
+          this.movePieceUpOrDown(1)
+        } else if (e.keyCode === 40) {
+          this.movePieceUpOrDown(-1)
         }
     },
     placePiece() {
       if (!this.boolGameOff) {
         const isOccupied = this.possiblePlacements[
           this.placementIndex
-        ].some(index => index.classList.contains('placed'))
+        ].some(index => index.block.classList.contains('placed'))
         if (!isOccupied) {
           this.possiblePlacements[this.placementIndex].forEach(index => {
-            index.classList.remove('piece')
-            index.classList.add('placed')
+            index.block.classList.remove('piece')
+            index.block.classList.add('placed')
           })
           this.nextPieceDivs.forEach(index => {
             index.classList.remove('piece')
