@@ -1,5 +1,7 @@
 <template>
+
   <div v-scroll-lock="mouseOverGame">
+
     <!--Game Start Button-->
     <button
       v-if="boolGameOff"
@@ -7,6 +9,7 @@
       @click="
         setGameOff(false), allPossibleMoves(), drawPiece(), drawNextPiece()
       "
+      id="start-game"
     >
       Start
     </button>
@@ -16,6 +19,7 @@
     <div
       style="width: 920px; heigth: 420px; margin: auto; position: relative; margin-top: 20px;"
     >
+
       <!--Score-->
       <div
         style="float: left; width: 220px; margin-right: 30px; margin-top: 37px;"
@@ -24,7 +28,7 @@
           <h4 style="color: #ffffff">Score: {{ score }}</h4>
         </b-card>
         <!--Instructions Button-->
-        <button @click="$bvModal.show('inst-modal')" style="margin-top: 8px;">
+        <button @click="$bvModal.show('inst-modal')" style="margin-top: 8px;" id="instruction-button">
           Instructions
         </button>
       </div>
@@ -169,10 +173,11 @@
           <div></div>
         </div>
       </div>
+
     </div>
 
     <!--Instructions Modal-->
-    <b-modal id="inst-modal" title="Instructions" hide-footer>
+    <b-modal id="inst-modal" title="Instructions" hide-footer no-close-on-backdrop @hidden="closeModal">
       <div class="modal-class">
         <h6>Goal</h6>
         <ul>
@@ -185,10 +190,9 @@
             Use left and right arrow keys to cycle through block placements
           </li>
           <li>
-            Can also scroll to cycle through block placements when hovering the
-            mouse over the game grid
+            Can also scroll to cycle through block placements when hovering mouse over the game grid
           </li>
-          <li>Press Enter to place block</li>
+          <li>Press Enter to place block or left click when hovering over game board</li>
         </ul>
       </div>
     </b-modal>
@@ -246,6 +250,8 @@ export default {
       currentPiece: [],
       nextPiece: [],
       timer: '',
+      timer2: '',
+      timer3: '',
       currentScore: {
         name: '',
         score: null
@@ -706,7 +712,8 @@ export default {
         `willy`,
         `xrated`,
         `xxx`
-      ]
+      ],
+      initDate: null
     }
   },
   computed: {
@@ -991,6 +998,12 @@ export default {
           this.movePieceUpOrDown(-1)
         }
     },
+    controlClick() {
+      let currentDate = Date.now();
+      if (!this.boolGameOff && currentDate - this.initDate > 100 && this.mouseOverGame) {
+        this.placePiece()
+      }
+    },
     placePiece() {
       if (!this.boolGameOff) {
         const isOccupied = this.possiblePlacements[
@@ -1075,14 +1088,13 @@ export default {
       this.$bvModal.show('end-modal')
     },
     setGameOff(bool) {
+      this.initDate = Date.now();
+      
       store.dispatch('changeBoolGameOff', {
         bool: bool
       })
     },
-    submitScore() {
-      // store.dispatch('postScore', {
-      //   score: this.currentScore
-      // })
+     submitScore() {
       store.dispatch('postScoreMongo', {
         score: this.currentScore.score,
         name: this.currentScore.name
@@ -1114,6 +1126,10 @@ export default {
       this.drawPiece()
       this.drawNextPiece()
     },
+    closeModal() {
+      document.getElementById('instruction-button').blur()
+      document.getElementById('start-game').focus()
+    },
     ...mapActions([
       'changeScore',
       'postScore',
@@ -1130,6 +1146,9 @@ export default {
     this.timer = setTimeout(() =>
       document.addEventListener('keyup', this.control)
     )
+    this.timer3 = setTimeout(() => {
+      document.addEventListener('click', this.controlClick)
+    })
     this.timer2 = setTimeout(() => {
       document.body.addEventListener('wheel', this.checkScrollDirection)
     })
@@ -1142,11 +1161,17 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.timer)
+    clearInterval(this.timer2)
+    clearInterval(this.timer3)
   }
 }
 </script>
 
 <style scoped>
+.button:focus {
+  outline: none;
+  box-shadow: none;
+}
 .small-grid {
   width: 200px;
   height: 200px;
