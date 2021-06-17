@@ -6,4 +6,7 @@ Connect to mongodb database using authentification:
 
 Show contents of mongodb collection when in mongo shell:
   db.collection_name.find().pretty()
+
+Connect to AWS EC2 Instance:
+  ssh -i ~/lock/joerockfirstawskey.pem ubuntu@publicipv4
   
